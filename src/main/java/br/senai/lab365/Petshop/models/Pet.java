@@ -10,6 +10,16 @@ public class Pet {
     private double altura;
     private LocalDateTime dataNascimento;
     private String especie;
+    private Tutor tutor;
+
+
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
 
     public int getId() {
         return id;

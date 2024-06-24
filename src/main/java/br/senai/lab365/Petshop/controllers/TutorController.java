@@ -1,6 +1,9 @@
+// TutorController.java
 package br.senai.lab365.Petshop.controllers;
 
+import br.senai.lab365.Petshop.models.Pet;
 import br.senai.lab365.Petshop.models.Tutor;
+import br.senai.lab365.Petshop.services.PetService;
 import br.senai.lab365.Petshop.services.TutorService;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +14,11 @@ import java.util.List;
 public class TutorController {
 
     private TutorService tutorService;
+    private PetService petService;
 
-    public TutorController(TutorService tutorService) {
+    public TutorController(TutorService tutorService, PetService petService) {
         this.tutorService = tutorService;
+        this.petService = petService;
     }
 
     @PostMapping
@@ -54,5 +59,14 @@ public class TutorController {
         } else {
             throw new RuntimeException("404");
         }
+    }
+
+    @GetMapping("/{idTutor}/pets")
+    public List<Pet> buscarPetsPorTutor(@PathVariable int idTutor) {
+        return petService.buscarPetsPorTutor(idTutor);
+    }
+    @PutMapping("/{idPet}/tutor/{idTutor}")
+    public void atualizarTutor(@PathVariable int idPet, @PathVariable int idTutor) {
+        petService.atualizarTutor(idPet, idTutor);
     }
 }

@@ -1,7 +1,9 @@
 package br.senai.lab365.Petshop.controllers;
 
 import br.senai.lab365.Petshop.models.Pet;
+import br.senai.lab365.Petshop.models.Tutor;
 import br.senai.lab365.Petshop.services.PetService;
+import br.senai.lab365.Petshop.services.TutorService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,13 +13,25 @@ import java.util.List;
 public class PetController {
 
     private PetService petService;
+    private TutorService tutorService;
 
-    public PetController(PetService petService) {
+    public PetController(PetService petService, TutorService tutorService) {
         this.petService = petService;
+        this.tutorService = tutorService;
     }
 
     @PostMapping
     public void cadastrar(@RequestBody Pet pet) {
+        if (pet.getTutor() != null && pet.getTutor().getId() != 0) {
+            Tutor tutor = tutorService.buscar(pet.getTutor().getId());
+            if (tutor != null) {
+                pet.setTutor(tutor);
+            } else {
+                throw new RuntimeException("404");
+            }
+        } else {
+            pet.setTutor(null);
+        }
         petService.cadastrar(pet);
     }
 

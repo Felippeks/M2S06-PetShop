@@ -1,6 +1,8 @@
+// PetRepository.java
 package br.senai.lab365.Petshop.repositories;
 
 import br.senai.lab365.Petshop.models.Pet;
+import br.senai.lab365.Petshop.models.Tutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -27,5 +29,12 @@ public class PetRepository {
 
     public Pet buscar(int id) {
         return pets.stream().filter(pet -> pet.getId() == id).findFirst().orElse(null);
+    }
+
+    public void atualizarTutor(int idPet, Tutor tutor) {
+        Pet pet = buscar(idPet);
+        if (pet != null) {
+            pet.setTutor(tutor);
+        }
     }
 }
