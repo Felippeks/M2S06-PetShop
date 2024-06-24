@@ -34,4 +34,14 @@ public class TutorService {
         }
         return false;
     }
+    public Tutor atualizar(int id, Tutor tutorAtualizado) {
+        Tutor tutorExistente = tutorRepository.buscar(id);
+        if (tutorExistente != null) {
+            tutorAtualizado.setId(tutorExistente.getId());
+            tutorRepository.remover(tutorExistente);
+            tutorRepository.adicionar(tutorAtualizado);
+            return tutorAtualizado;
+        }
+        return null;
+    }
 }

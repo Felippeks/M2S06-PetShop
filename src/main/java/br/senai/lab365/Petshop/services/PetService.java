@@ -34,4 +34,15 @@ public class PetService {
         }
         return false;
         }
+
+    public Pet atualizar(int id, Pet petAtualizado) {
+        Pet petExistente = petRepository.buscar(id);
+        if (petExistente != null) {
+            petAtualizado.setId(petExistente.getId());
+            petRepository.remover(petExistente);
+            petRepository.adicionar(petAtualizado);
+            return petAtualizado;
+        }
+        return null;
+    }
     }

@@ -45,4 +45,14 @@ public class TutorController {
     public String remover(@PathVariable int id) {
         return tutorService.remover(id) ? "Tutor removido" : String.format("Tutor com id %d não encontrado", id);
     }
+
+    @PutMapping("/{id}")
+    public Tutor atualizar(@PathVariable int id, @RequestBody Tutor tutorAtualizado) {
+        Tutor tutor = tutorService.atualizar(id, tutorAtualizado);
+        if (tutor != null) {
+            return tutor;
+        } else {
+            throw new RuntimeException("404");
+        }
+    }
 }
